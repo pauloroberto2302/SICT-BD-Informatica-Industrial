@@ -55,3 +55,18 @@ CREATE TABLE Sintonia (
     Ki NUMERIC(5,2)NOT NULL,
     Kd NUMERIC(5,2)NOT NULL
 );
+
+CREATE TABLE Software (
+    ID_Acesso varchar(32) NOT NULL,
+    DataeHoraInicio datetime NOT NULL,
+    DataeHoraFim datetime NOT NULL,
+    ID_Parametros varchar(32) NOT NULL,
+    PRIMARY KEY (ID_Parametros, ID_Acesso)
+);
+
+CREATE TABLE Acessos (
+    ID_Usuario int(32) NOT NULL,
+    ID_Categoria varchar(32) NOT NULL,
+    AlteracaoSetpoint NUMERIC(4,2) NOT NULL,
+    PRIMARY KEY (ID_Usuario, ID_Categoria)
+);
