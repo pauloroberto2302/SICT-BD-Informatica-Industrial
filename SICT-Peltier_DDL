@@ -1,0 +1,13 @@
+# /////////////////////////////////////////////////////
+#
+# 			Projeto de Banco de Dados - SICT-Peltier
+#	 Autores: Paulo Roberto Rodrigues dos Sandos Júnior
+#	          Camila Caroline Rodrigues de Albuquerque
+#
+# ////////////////////////////////////////////////////
+
+########################################################
+#------------ Criação do Banco de Dados ----------------
+########################################################
+CREATE database SICT;
+use SICT;
