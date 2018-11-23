@@ -35,3 +35,23 @@ CREATE TABLE Endereco (
     UF varchar(2) NOT NULL,
     PRIMARY KEY (ID)
 );
+
+CREATE TABLE Sistema (
+    Temperatura NUMERIC(4,2) NOT NULL,
+    DataeHora datetime NOT NULL,
+    ID_Parametros varchar(50) NOT NULL,
+    PRIMARY KEY (ID_Parametros)
+);
+
+CREATE TABLE Parametros (
+    Setpoint NUMERIC(4,2) NOT NULL,
+    Cte_Sintonia NUMERIC(5,2)NOT NULL,
+    TempodeResposta NUMERIC(5,2)NOT NULL,
+    PRIMARY KEY (Cte_Sintonia)
+);
+
+CREATE TABLE Sintonia (
+    Kp NUMERIC(5,2) NOT NULL,
+    Ki NUMERIC(5,2)NOT NULL,
+    Kd NUMERIC(5,2)NOT NULL
+);
