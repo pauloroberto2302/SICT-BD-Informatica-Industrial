@@ -244,3 +244,41 @@ START TRANSACTION;
 	INSERT INTO Sintonia(Kp,Ki,Kd) 
 		VALUES ('230','120.00', '700.00');
 COMMIT;
+
+########################################################
+#------------Inserção dos Dados do Software-------------
+########################################################
+
+START TRANSACTION;
+	INSERT INTO Software(DataeHoraInicio,DataeHoraFim, AlteracaoSetpoint ) 
+		VALUES ('2018-11-23 08:21:54', '2018-11-23 17:59:54' , '41.33');	   
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Software(DataeHoraInicio,DataeHoraFim, AlteracaoSetpoint) 
+		VALUES ('2018-11-24 08:12:32', '2018-11-24 17:59:45' , '42.00');	   
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Software(DataeHoraInicio,DataeHoraFim, AlteracaoSetpoint) 
+		VALUES ('2018-11-22 08:03:44', '2018-11-22 17:59:34' , '33.41');	   
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Software(DataeHoraInicio,DataeHoraFim, AlteracaoSetpoint) 
+		VALUES ('2018-11-23 08:05:11', '2018-11-23 17:59:23' , '21.43');	   
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Software(DataeHoraInicio,DataeHoraFim, AlteracaoSetpoint) 
+		VALUES ('2018-11-21 08:35:00', '2018-11-21 17:59:12', '41.32');	   
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Software(DataeHoraInicio,DataeHoraFim, AlteracaoSetpoint) 
+		VALUES ('2018-11-20 08:01:32', '2018-11-20 17:59:43', '43.98');	   
+COMMIT;
+
+########################################################
+#----------------Inserção dos Acessos-------------------
+########################################################
