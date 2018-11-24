@@ -91,3 +91,102 @@ ALTER TABLE Sintonia ADD CONSTRAINT Sintonia_fk0 FOREIGN KEY (ID_Sintonia) REFER
 ALTER TABLE Software ADD CONSTRAINT Software_fk FOREIGN KEY (ID_Software) REFERENCES Sistema(ID_Sistema);
 ALTER TABLE Acesso ADD CONSTRAINT Acesso_fk FOREIGN KEY (ID_Acesso) REFERENCES Software(ID_Software);
 ALTER TABLE Acesso ADD CONSTRAINT Acesso_fk1 FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID);
+
+########################################################
+#----------Inserção de Usuarios e Endereços-------------
+########################################################
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua Sargento Josias','Salesianos','Juazeiro do Norte', '123', '63123021', 'CE');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, ID_Endereco) 
+		VALUES ('Paulo Roberto','05605605678','M','1995-02-23','Administrador', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua Madelena Rosa','Centro','Cajazeiras', '234', '56123021', 'PB');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, ID_Endereco) 
+		VALUES ('Camila Albuquerque','04304304356','F','1995-10-03','Administrador', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua Mair Curcui','Centro','Itabaiana', '345', '56233043', 'PB');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, ID_Endereco) 
+		VALUES ('Ulisses Gomes','02302302313','M','1995-12-04','UsuarioComum', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua Santa Clara','Muriti','Crato', '456', '633214546', 'CE');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, ID_Endereco) 
+		VALUES ('Evellyne Alves','02402402498','F','1995-04-20','UsuarioComum', @a);
+COMMIT;
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua Craudim Nescal','Paraiso','Pau dos Ferros', '567', '59025003', 'RN');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, ID_Endereco) 
+		VALUES ('Kaio Nikelisson','03203203204','M','1995-08-07','UsuarioComum', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua Rio Velho','Centro','Encanto', '567', '59026007', 'RN');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, ID_Endereco) 
+		VALUES ('Joao Pedro','03303403504','M','1995-09-03','UsuarioComum', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua das Flores','Santa Tereza','Juazeiro do Norte', '678', '63026007', 'CE');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, ID_Endereco) 
+		VALUES ('Victor Germano','03203103004','M','1994-11-05','UsuarioComum', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua das Clareiras','Centenario','Campina Grande', '789', '56026035', 'PB');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, ID_Endereco) 
+		VALUES ('Robson Donato','05505405323','M','1993-03-12','UsuarioComum', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua das Arvores','Zona Industrial','Campina Grande', '890', '56036437', 'PB');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, ID_Endereco) 
+		VALUES ('Jose Adeilmo','03505705321','M','1996-04-21','UsuarioComum', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua dos Predios','Catole','Campina Grande', '321', '56032410', 'PB');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, ID_Endereco) 
+		VALUES ('Ravi Helon','01201301424','M','1996-07-30','UsuarioComum', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua das Casas','Centro','Pau dos Ferros', '432', '59032410', 'RN');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, ID_Endereco) 
+		VALUES ('Lucas Oliveira','01101101125','M','1997-04-23','UsuarioComum', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua Central','Malvinas','Barbalha', '543', '63032410', 'CE');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, ID_Endereco) 
+		VALUES ('Alinny Alves','01501401227','F','1998-02-20','UsuarioComum', @a);
+COMMIT;
