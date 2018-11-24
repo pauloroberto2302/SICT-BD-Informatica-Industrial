@@ -1,8 +1,8 @@
 # /////////////////////////////////////////////////////
 #
-# 			Projeto de Banco de Dados - SICT-Peltier
-#	 Autores: Paulo Roberto Rodrigues dos Sandos Júnior
-#	          Camila Caroline Rodrigues de Albuquerque
+# 	Projeto de Banco de Dados - SICT-Peltier
+#	Autores: Paulo Roberto Rodrigues dos Sandos Júnior
+#	         Camila Caroline Rodrigues de Albuquerque
 #
 # ////////////////////////////////////////////////////
 
@@ -17,13 +17,11 @@ CREATE TABLE Usuario (
     Nome varchar(30) NOT NULL,
     CPF varchar(11) NOT NULL UNIQUE,
     Sexo CHAR(1) NOT NULL,
-    Telefone varchar(30) NOT NULL,
-    ID_Endereco varchar(50) NOT NULL,
     DataNascimento date NOT NULL,
-    ID_categoria varchar(15) NOT NULL,
+    Categoria varchar(15) NOT NULL,
+    ID_Endereco int(30) NOT NULL, 
     PRIMARY KEY (ID,CPF)
 );
-
 
 CREATE TABLE Endereco (
     ID int(32) NOT NULL AUTO_INCREMENT,
@@ -36,37 +34,15 @@ CREATE TABLE Endereco (
     PRIMARY KEY (ID)
 );
 
-CREATE TABLE Sistema (
-    Temperatura NUMERIC(4,2) NOT NULL,
-    DataeHora datetime NOT NULL,
-    ID_Parametros varchar(50) NOT NULL,
-    PRIMARY KEY (ID_Parametros)
-);
-
-CREATE TABLE Parametros (
-    Setpoint NUMERIC(4,2) NOT NULL,
-    Cte_Sintonia NUMERIC(5,2)NOT NULL,
-    TempodeResposta NUMERIC(5,2)NOT NULL,
-    PRIMARY KEY (Cte_Sintonia)
-);
-
-CREATE TABLE Sintonia (
-    Kp NUMERIC(5,2) NOT NULL,
-    Ki NUMERIC(5,2)NOT NULL,
-    Kd NUMERIC(5,2)NOT NULL
-);
-
-CREATE TABLE Software (
-    ID_Acesso varchar(32) NOT NULL,
-    DataeHoraInicio datetime NOT NULL,
-    DataeHoraFim datetime NOT NULL,
-    ID_Parametros varchar(32) NOT NULL,
-    PRIMARY KEY (ID_Parametros, ID_Acesso)
-);
-
-CREATE TABLE Acessos (
+CREATE TABLE Telefone_Usuarios (
     ID_Usuario int(32) NOT NULL,
-    ID_Categoria varchar(32) NOT NULL,
-    AlteracaoSetpoint NUMERIC(4,2) NOT NULL,
-    PRIMARY KEY (ID_Usuario, ID_Categoria)
+    Telefone varchar(15),
+    PRIMARY KEY (ID_Usuario,Telefone)
 );
+
+########################################################
+#--------- Adicionando as chaves estrangeiras ---------
+########################################################
+
+ALTER TABLE Usuario ADD CONSTRAINT Usuario_fk FOREIGN KEY (ID_Endereco) REFERENCES Endereco(ID);
+ALTER TABLE Telefone_Usuarios ADD CONSTRAINT Telefone_Usuarios_fk0 FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID);
