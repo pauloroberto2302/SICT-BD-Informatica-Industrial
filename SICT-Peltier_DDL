@@ -72,7 +72,8 @@ CREATE TABLE Software (
 CREATE TABLE Acesso (
     ID_Acesso int(32) NOT NULL,
     ID_Usuario int(32) NOT NULL,
-    PRIMARY KEY (ID_Acesso, ID_Usuario)
+    ID_Acesso_Sis int(32) NOT NULL,
+    PRIMARY KEY (ID_Acesso, ID_Usuario, ID_Acesso_Sis)
 );
 
 ########################################################
@@ -87,6 +88,7 @@ ALTER TABLE Sintonia ADD CONSTRAINT Sintonia_fk FOREIGN KEY (ID_Sintonia) REFERE
 ALTER TABLE Software ADD CONSTRAINT Software_fk FOREIGN KEY (ID_Software) REFERENCES Sistema(ID_Sistema);
 ALTER TABLE Acesso ADD CONSTRAINT Acesso_fk FOREIGN KEY (ID_Acesso) REFERENCES Software(ID_Software);
 ALTER TABLE Acesso ADD CONSTRAINT Acesso_fk1 FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID);
+ALTER TABLE Acesso ADD CONSTRAINT Acesso_fk2 FOREIGN KEY (ID_Acesso_Sis) REFERENCES Sistema(ID_Sistema)
 
 ########################################################
 #----------Inserção de Usuarios e Endereços-------------
