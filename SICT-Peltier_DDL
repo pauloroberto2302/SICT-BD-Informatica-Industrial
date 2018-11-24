@@ -64,6 +64,21 @@ CREATE TABLE Sintonia (
     PRIMARY KEY (ID_Sintonia)
 );
 
+CREATE TABLE Software (
+    ID_Software int(32) NOT NULL AUTO_INCREMENT,
+    ID_Acesso varchar(32) NOT NULL,
+    DataeHoraInicio datetime NOT NULL,
+    DataeHoraFim datetime NOT NULL,
+    PRIMARY KEY (ID_Software, ID_Acesso)
+);
+
+CREATE TABLE Acesso (
+    ID_Acesso int(32) NOT NULL AUTO_INCREMENT,
+    ID_Usuario int(32) NOT NULL,
+    AlteracaoSetpoint NUMERIC(4,2) NOT NULL,
+    PRIMARY KEY (ID_Acesso, ID_Usuario)
+);
+
 ########################################################
 #--------- Adicionando as chaves estrangeiras ---------
 ########################################################
@@ -73,3 +88,6 @@ ALTER TABLE Telefone_Usuarios ADD CONSTRAINT Telefone_Usuarios_fk0 FOREIGN KEY (
 ALTER TABLE Sistema ADD CONSTRAINT Sistema_fk0 FOREIGN KEY (ID_Sistema) REFERENCES Usuario(ID);
 ALTER TABLE Parametros ADD CONSTRAINT Parametros_fk0 FOREIGN KEY (ID) REFERENCES Sistema(ID_Parametros);
 ALTER TABLE Sintonia ADD CONSTRAINT Sintonia_fk0 FOREIGN KEY (ID_Sintonia) REFERENCES Parametros(ID);
+ALTER TABLE Software ADD CONSTRAINT Software_fk FOREIGN KEY (ID_Software) REFERENCES Sistema(ID_Sistema);
+ALTER TABLE Acesso ADD CONSTRAINT Acesso_fk FOREIGN KEY (ID_Acesso) REFERENCES Software(ID_Software);
+ALTER TABLE Acesso ADD CONSTRAINT Acesso_fk1 FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID);
