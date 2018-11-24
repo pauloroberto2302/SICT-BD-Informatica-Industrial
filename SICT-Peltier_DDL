@@ -70,7 +70,7 @@ CREATE TABLE Software (
 );
 
 CREATE TABLE Acesso (
-    ID_Acesso int(32) NOT NULL,
+    ID_Acesso int(32) NOT NULL AUTO_INCREMENT,
     ID_Usuario int(32) NOT NULL,
     ID_Acesso_Sis int(32) NOT NULL,
     PRIMARY KEY (ID_Acesso, ID_Usuario, ID_Acesso_Sis)
