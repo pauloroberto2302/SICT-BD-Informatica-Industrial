@@ -48,10 +48,28 @@ CREATE TABLE Sistema (
     PRIMARY KEY (ID_Sistema, ID_Parametros)
 );
 
+CREATE TABLE Parametros (
+    ID int(32) NOT NULL AUTO_INCREMENT,
+    Setpoint NUMERIC(4,2) NOT NULL,
+    Cte_Sintonia NUMERIC(5,2)NOT NULL,
+    TempodeResposta NUMERIC(5,2)NOT NULL,
+    PRIMARY KEY (ID, Cte_Sintonia)
+);
+
+CREATE TABLE Sintonia (
+    ID_Sintonia int(32) NOT NULL AUTO_INCREMENT,
+    Kp NUMERIC(5,2) NOT NULL,
+    Ki NUMERIC(5,2)NOT NULL,
+    Kd NUMERIC(5,2)NOT NULL,
+    PRIMARY KEY (ID_Sintonia)
+);
+
 ########################################################
 #--------- Adicionando as chaves estrangeiras ---------
 ########################################################
 
 ALTER TABLE Usuario ADD CONSTRAINT Usuario_fk FOREIGN KEY (ID_Endereco) REFERENCES Endereco(ID);
 ALTER TABLE Telefone_Usuarios ADD CONSTRAINT Telefone_Usuarios_fk0 FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID);
-ALTER TABLE Sistema ADD CONSTRAINT Sistema_fk0 FOREIGN KEY (ID_Parametros) REFERENCES Usuario(ID);
+ALTER TABLE Sistema ADD CONSTRAINT Sistema_fk0 FOREIGN KEY (ID_Sistema) REFERENCES Usuario(ID);
+ALTER TABLE Parametros ADD CONSTRAINT Parametros_fk0 FOREIGN KEY (ID) REFERENCES Sistema(ID_Parametros);
+ALTER TABLE Sintonia ADD CONSTRAINT Sintonia_fk0 FOREIGN KEY (ID_Sintonia) REFERENCES Parametros(ID);
