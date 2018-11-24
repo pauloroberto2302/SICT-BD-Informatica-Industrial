@@ -122,7 +122,7 @@ COMMIT;
 
 START TRANSACTION;
 	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
-		VALUES ('Rua Santa Clara','Muriti','Crato', '456', '633214546', 'CE');	
+		VALUES ('Rua Santa Clara','Muriti','Crato', '456', '63214546', 'CE');	
     SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
     INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, ID_Endereco) 
 		VALUES ('Evellyne Alves','02402402498','F','1995-04-20','UsuarioComum', @a);
