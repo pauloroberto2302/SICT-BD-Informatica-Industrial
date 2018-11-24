@@ -40,9 +40,18 @@ CREATE TABLE Telefone_Usuarios (
     PRIMARY KEY (ID_Usuario,Telefone)
 );
 
+CREATE TABLE Sistema (
+    ID_Sistema int(32) NOT NULL AUTO_INCREMENT,
+    Temperatura NUMERIC(4,2) NOT NULL,
+    DataeHora datetime NOT NULL,
+    ID_Parametros int(32) NOT NULL,
+    PRIMARY KEY (ID_Sistema, ID_Parametros)
+);
+
 ########################################################
 #--------- Adicionando as chaves estrangeiras ---------
 ########################################################
 
 ALTER TABLE Usuario ADD CONSTRAINT Usuario_fk FOREIGN KEY (ID_Endereco) REFERENCES Endereco(ID);
 ALTER TABLE Telefone_Usuarios ADD CONSTRAINT Telefone_Usuarios_fk0 FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID);
+ALTER TABLE Sistema ADD CONSTRAINT Sistema_fk0 FOREIGN KEY (ID_Parametros) REFERENCES Usuario(ID);
