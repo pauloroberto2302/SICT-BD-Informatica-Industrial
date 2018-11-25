@@ -21,9 +21,6 @@ FROM Usuario AS users
     ON users.ID = acess.ID_Usuario
     GROUP BY ID;
 
-INNER JOIN Endereco AS address 
-ON users.ID_Endereco = address.ID AND address.Cidade = "Campina Grande";
-
 #Consulta 03: Retorne a lista de sistemas gerenciados por um usuário em campina Grande.
 
 SELECT Nome, COUNT(*) AS "QUANTIDADE DE SISTEMAS GERENCIADOS POR USUARIOS EM CAMPINA GRANDE"
