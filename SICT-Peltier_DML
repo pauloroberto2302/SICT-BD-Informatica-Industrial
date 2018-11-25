@@ -6,3 +6,45 @@
 #
 # ////////////////////////////////////////////////////
 
+#Consulta 01: Retorne a lista de usuários com Nome, Telefone, CPF, Rua, Cidade e Estado.
+
+SELECT Nome, Telefone, CPF, Cidade, Rua, UF
+FROM Usuario
+INNER JOIN Endereco
+ON Usuario.ID = Endereco.ID;
+
+#Consulta 02: Retorne o número de sistemas que são gerenciados por um usuário XXX.
+
+SELECT ID, Nome, COUNT(*) AS "QUANTIDADE DE SISTEMAS GERENCIADOS"
+FROM Usuario AS users
+    INNER JOIN Acesso As acess
+    ON users.ID = acess.ID_Usuario
+    GROUP BY ID;
+
+INNER JOIN Endereco AS address 
+ON users.ID_Endereco = address.ID AND address.Cidade = "Campina Grande";
+
+#Consulta 03: Retorne a lista de sistemas gerenciados por um usuário em campina Grande.
+
+SELECT Nome, COUNT(*) AS "QUANTIDADE DE SISTEMAS GERENCIADOS POR USUARIOS EM CAMPINA GRANDE"
+FROM Usuario AS users
+    INNER JOIN Acesso As acess
+    ON users.ID = acess.ID_Usuario
+    INNER JOIN Endereco AS address 
+    ON users.ID_Endereco = address.ID AND address.Cidade = "Campina Grande"
+    GROUP BY Nome;
+
+#Consulta 04: Retorne a lista de software cadastrados no sistema ordenado por ID do software.
+
+#Ordem Crescente:
+SELECT * FROM Software ORDER BY ID_Software;
+
+#Ordem Decrescente:
+SELECT * FROM Software ORDER BY ID_Software DESC;
+
+#Consulta 05: Retorne o número de usuários que moram em campina grande
+
+SELECT Count(*) AS Usuarios_Campina_Grande
+FROM Usuario AS users
+INNER JOIN Endereco AS address 
+ON users.ID_Endereco = address.ID AND address.Cidade = "Campina Grande";
