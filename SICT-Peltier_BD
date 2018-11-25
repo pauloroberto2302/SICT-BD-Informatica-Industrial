@@ -1,1 +1,352 @@
+# /////////////////////////////////////////////////////
+#
+# 	Projeto de Banco de Dados - SICT-Peltier
+#	Autores: Paulo Roberto Rodrigues dos Sandos Júnior
+#	         Camila Caroline Rodrigues de Albuquerque
+#
+# ////////////////////////////////////////////////////
 
+########################################################
+#------------ Criação do Banco de Dados ----------------
+########################################################
+CREATE database SICT;
+use SICT;
+
+CREATE TABLE Usuario (
+    ID int(32) NOT NULL AUTO_INCREMENT,
+    Nome varchar(30) NOT NULL,
+    CPF varchar(11) NOT NULL UNIQUE,
+    Sexo CHAR(1) NOT NULL,
+    DataNascimento date NOT NULL,
+    Telefone int(10) NOT NULL,
+    Categoria varchar(15) NOT NULL,
+    ID_Endereco int(30) NOT NULL, 
+    PRIMARY KEY (ID,CPF, Telefone)
+);
+
+CREATE TABLE Endereco (
+    ID int(32) NOT NULL AUTO_INCREMENT,
+    Rua varchar(50) NOT NULL,
+    Bairro varchar(50) NOT NULL,
+    Cidade varchar(50) NOT NULL,
+    Numero varchar(50) NOT NULL,
+    CEP int(10) NOT NULL,
+    UF varchar(2) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE Sistema (
+    ID_Sistema int(32) NOT NULL AUTO_INCREMENT,
+    Temperatura NUMERIC(4,2) NOT NULL,
+    DataeHora datetime NOT NULL,
+    PRIMARY KEY (ID_Sistema)
+);
+CREATE TABLE Parametros (
+    Cte_Sintonia int(32) NOT NULL AUTO_INCREMENT,
+    Setpoint NUMERIC(4,2) NOT NULL,
+    TempodeResposta NUMERIC(5,2)NOT NULL,
+    PRIMARY KEY (Cte_Sintonia)
+);
+
+CREATE TABLE Sintonia (
+    ID_Sintonia int(32) NOT NULL AUTO_INCREMENT,
+    Kp NUMERIC(5,2) NOT NULL,
+    Ki NUMERIC(5,2)NOT NULL,
+    Kd NUMERIC(5,2)NOT NULL,
+    PRIMARY KEY (ID_Sintonia)
+);
+
+CREATE TABLE Software (
+    ID_Software int(32) NOT NULL AUTO_INCREMENT,
+    DataeHoraInicio datetime NOT NULL,
+    DataeHoraFim datetime NOT NULL,
+    AlteracaoSetpoint NUMERIC(4,2) NOT NULL,
+    PRIMARY KEY (ID_Software)
+);
+
+CREATE TABLE Acesso (
+    ID_Acesso int(32) NOT NULL AUTO_INCREMENT,
+    ID_Usuario int(32) NOT NULL,
+    ID_Acesso_Sis int(32) NOT NULL,
+    PRIMARY KEY (ID_Acesso, ID_Usuario, ID_Acesso_Sis)
+);
+
+########################################################
+#--------- Adicionando as chaves estrangeiras ---------
+########################################################
+
+ALTER TABLE Usuario ADD CONSTRAINT Usuario_fk FOREIGN KEY (ID_Endereco) REFERENCES Endereco(ID);
+
+ALTER TABLE Sistema ADD CONSTRAINT Sistema_fk FOREIGN KEY (ID_Sistema) REFERENCES Usuario(ID);
+
+ALTER TABLE Sistema ADD CONSTRAINT Endereco_fk FOREIGN KEY (ID_Sistema) REFERENCES Endereco(ID);
+
+ALTER TABLE Parametros ADD CONSTRAINT Parametros_fk FOREIGN KEY (Cte_Sintonia) REFERENCES Sistema(ID_Sistema);
+
+ALTER TABLE Sintonia ADD CONSTRAINT Sintonia_fk FOREIGN KEY (ID_Sintonia) REFERENCES Parametros(Cte_Sintonia);
+
+ALTER TABLE Software ADD CONSTRAINT Software_fk FOREIGN KEY (ID_Software) REFERENCES Sistema(ID_Sistema);
+
+ALTER TABLE Acesso ADD CONSTRAINT Acesso_fk FOREIGN KEY (ID_Acesso) REFERENCES Software(ID_Software);
+
+ALTER TABLE Acesso ADD CONSTRAINT Acesso_fk1 FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID);
+
+ALTER TABLE Acesso ADD CONSTRAINT Acesso_fk2 FOREIGN KEY (ID_Acesso_Sis) REFERENCES Sistema(ID_Sistema);
+
+########################################################
+#----------Inserção de Usuarios e Endereços-------------
+########################################################
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua Sargento Josias','Salesianos','Juazeiro do Norte', '123', '63123021', 'CE');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, Telefone, ID_Endereco) 
+		VALUES ('Paulo Roberto','05605605678','M','1995-02-23','Administrador','11111111', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua Madelena Rosa','Centro','Cajazeiras', '234', '56123021', 'PB');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, Telefone, ID_Endereco) 
+		VALUES ('Camila Albuquerque','04304304356','F','1995-10-03','Administrador','22222222', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua Mair Curcui','Centro','Itabaiana', '345', '56233043', 'PB');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, Telefone, ID_Endereco) 
+		VALUES ('Ulisses Gomes','02302302313','M','1995-12-04','UsuarioComum', '33333333', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua Santa Clara','Muriti','Crato', '456', '63214546', 'CE');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, Telefone, ID_Endereco) 
+		VALUES ('Evellyne Alves','02402402498','F','1995-04-20','UsuarioComum','44444444', @a);
+COMMIT;
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua Craudim Nescal','Paraiso','Pau dos Ferros', '567', '59025003', 'RN');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, Telefone, ID_Endereco) 
+		VALUES ('Kaio Nikelisson','03203203204','M','1995-08-07','UsuarioComum', '55555555',@a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua Rio Velho','Centro','Encanto', '567', '59026007', 'RN');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, Telefone, ID_Endereco) 
+		VALUES ('Joao Pedro','03303403504','M','1995-09-03','UsuarioComum', '66666666', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua das Flores','Santa Tereza','Juazeiro do Norte', '678', '63026007', 'CE');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, Telefone, ID_Endereco) 
+		VALUES ('Victor Germano','03203103004','M','1994-11-05','UsuarioComum', '77777777', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua das Clareiras','Centenario','Campina Grande', '789', '56026035', 'PB');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, Telefone, ID_Endereco) 
+		VALUES ('Robson Donato','05505405323','M','1993-03-12','UsuarioComum', '88888888', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua das Arvores','Zona Industrial','Campina Grande', '890', '56036437', 'PB');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, Telefone, ID_Endereco) 
+		VALUES ('Jose Adeilmo','03505705321','M','1996-04-21','UsuarioComum', '99999999', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua dos Predios','Catole','Campina Grande', '321', '56032410', 'PB');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, Telefone, ID_Endereco) 
+		VALUES ('Ravi Helon','01201301424','M','1996-07-30','UsuarioComum', '10101010', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua das Casas','Centro','Pau dos Ferros', '432', '59032410', 'RN');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, Telefone, ID_Endereco) 
+		VALUES ('Lucas Oliveira','01101101125','M','1997-04-23','UsuarioComum', '12121212', @a);
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Endereco(Rua,Bairro,Cidade,Numero,CEP, UF) 
+		VALUES ('Rua Central','Malvinas','Barbalha', '543', '63032410', 'CE');	
+    SELECT @a:=ID FROM Endereco ORDER BY ID DESC LIMIT 1;    
+    INSERT INTO Usuario(Nome,CPF,Sexo, DataNascimento, Categoria, Telefone, ID_Endereco) 
+		VALUES ('Alinny Alves','01501401227','F','1998-02-20','UsuarioComum', '13131313', @a);
+COMMIT;
+
+########################################################
+#------Inserção dos Dados do Sistema e Parâmetros------
+########################################################
+
+START TRANSACTION;
+	INSERT INTO Sistema(Temperatura,DataeHora) 
+		VALUES ('34.76','2018-11-23 14:57:34');	   
+        INSERT INTO Parametros(Setpoint,TempodeResposta) 
+		VALUES ('35.00','120.00');
+	INSERT INTO Sintonia(Kp,Ki,Kd) 
+		VALUES ('100.00','120.00', '140.00');
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Sistema(Temperatura,DataeHora) 
+		VALUES ('38.34','2018-11-22 16:34:21');	   
+        INSERT INTO Parametros(Setpoint,TempodeResposta) 
+		VALUES ('36.00','75.00');
+	INSERT INTO Sintonia(Kp,Ki,Kd) 
+		VALUES ('105.00','190.00', '50.00');
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Sistema(Temperatura,DataeHora) 
+		VALUES ('28.89','2018-11-24 13:33:45');	   
+        INSERT INTO Parametros(Setpoint,TempodeResposta) 
+		VALUES ('45.00','30.00');
+	INSERT INTO Sintonia(Kp,Ki,Kd) 
+		VALUES ('30.00','450.00', '130.00');
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Sistema(Temperatura,DataeHora) 
+		VALUES ('36.77','2018-11-22 17:17:17');	   
+        INSERT INTO Parametros(Setpoint,TempodeResposta) 
+		VALUES ('33.54','160.00');
+	INSERT INTO Sintonia(Kp,Ki,Kd) 
+		VALUES ('123.00','234.00', '345.00');
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Sistema(Temperatura,DataeHora) 
+		VALUES ('21.32','2018-11-23 11:53:32');	   
+        INSERT INTO Parametros(Setpoint,TempodeResposta) 
+		VALUES ('40.00','30.00');
+	INSERT INTO Sintonia(Kp,Ki,Kd) 
+		VALUES ('145.00','750.00', '0.45');
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Sistema(Temperatura,DataeHora) 
+		VALUES ('34.58','2018-11-25 08:21:54');	   
+        INSERT INTO Parametros(Setpoint,TempodeResposta) 
+		VALUES ('47.50','200.00');
+	INSERT INTO Sintonia(Kp,Ki,Kd) 
+		VALUES ('230','120.00', '700.00');
+COMMIT;
+
+########################################################
+#------------Inserção dos Dados do Software-------------
+########################################################
+
+START TRANSACTION;
+	INSERT INTO Software(DataeHoraInicio,DataeHoraFim, AlteracaoSetpoint ) 
+		VALUES ('2018-11-23 08:21:54', '2018-11-23 17:59:54' , '41.33');	   
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Software(DataeHoraInicio,DataeHoraFim, AlteracaoSetpoint) 
+		VALUES ('2018-11-24 08:12:32', '2018-11-24 17:59:45' , '42.00');	   
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Software(DataeHoraInicio,DataeHoraFim, AlteracaoSetpoint) 
+		VALUES ('2018-11-22 08:03:44', '2018-11-22 17:59:34' , '33.41');	   
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Software(DataeHoraInicio,DataeHoraFim, AlteracaoSetpoint) 
+		VALUES ('2018-11-23 08:05:11', '2018-11-23 17:59:23' , '21.43');	   
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Software(DataeHoraInicio,DataeHoraFim, AlteracaoSetpoint) 
+		VALUES ('2018-11-21 08:35:00', '2018-11-21 17:59:12', '41.32');	   
+COMMIT;
+
+START TRANSACTION;
+	INSERT INTO Software(DataeHoraInicio,DataeHoraFim, AlteracaoSetpoint) 
+		VALUES ('2018-11-20 08:01:32', '2018-11-20 17:59:43', '43.98');	   
+COMMIT;
+
+########################################################
+#----------------Inserção dos Acessos-------------------
+########################################################
+
+START TRANSACTION;
+	INSERT INTO Acesso(ID_Acesso, ID_Usuario, ID_Acesso_Sis)
+		VALUES	('1','1','1'),			
+              	        ('2','2','2'),			
+              		('3','3','3'),			 
+              		('1','4','1'),			
+              		('5','5','5'),			
+              		('5','6','5'),
+              		('1','7','1'),
+              		('6','8','6'),
+              		('6','9','6'),
+              		('6','10','6'),
+              		('5','11','5'),
+			('1','12','1');					
+COMMIT;
+
+########################################################
+#--------------------- Consultas ----------------------#
+########################################################
+
+#Consulta 01: Retorne a lista de usuários com Nome, Telefone, CPF, Rua, Cidade e Estado.
+
+SELECT Nome, Telefone, CPF, Cidade, Rua, UF
+FROM Usuario
+INNER JOIN Endereco
+ON Usuario.ID = Endereco.ID;
+
+#Consulta 02: Retorne o número de sistemas que são gerenciados por um usuário XXX.
+
+SELECT ID, Nome, COUNT(*) AS "QUANTIDADE DE SISTEMAS GERENCIADOS"
+FROM Usuario AS users
+    INNER JOIN Acesso As acess
+    ON users.ID = acess.ID_Usuario
+    GROUP BY ID;
+
+INNER JOIN Endereco AS address 
+ON users.ID_Endereco = address.ID AND address.Cidade = "Campina Grande";
+
+#Consulta 03: Retorne a lista de sistemas gerenciados por um usuário em campina Grande.
+
+SELECT Nome, COUNT(*) AS "QUANTIDADE DE SISTEMAS GERENCIADOS POR USUARIOS EM CAMPINA GRANDE"
+FROM Usuario AS users
+    INNER JOIN Acesso As acess
+    ON users.ID = acess.ID_Usuario
+    INNER JOIN Endereco AS address 
+    ON users.ID_Endereco = address.ID AND address.Cidade = "Campina Grande"
+    GROUP BY Nome;
+
+#Consulta 04: Retorne a lista de software cadastrados no sistema ordenado por ID do software.
+
+#Ordem Crescente:
+SELECT * FROM Software ORDER BY ID_Software;
+
+#Ordem Decrescente:
+SELECT * FROM Software ORDER BY ID_Software DESC;
+
+#Consulta 05: Retorne o número de usuários que moram em campina grande
+
+SELECT Count(*) AS Usuarios_Campina_Grande
+FROM Usuario AS users
+INNER JOIN Endereco AS address 
+ON users.ID_Endereco = address.ID AND address.Cidade = "Campina Grande";
